@@ -8,4 +8,4 @@
 
 import UIKit
 
-
+//let myColor = UIColor(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)
