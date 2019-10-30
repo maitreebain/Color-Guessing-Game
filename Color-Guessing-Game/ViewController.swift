@@ -14,16 +14,15 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         colorPrompt.backgroundColor = myColor()
+        currentScore.text = "Current Score: 0"
     }
 //    let myColor = UIColor(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)
 //
     @IBOutlet weak var colorPrompt: UIImageView!
     @IBOutlet weak var currentScore: UILabel!
-    @IBOutlet var highScore: UIView!
     @IBOutlet weak var textPrompt: UILabel!
+    @IBOutlet weak var highScore: UILabel!
     
-    
-//update at index
     
     var randomRed = CGFloat.random(in: 0...1)
     var randomBlue = CGFloat.random(in: 0...1)
@@ -38,6 +37,24 @@ class ViewController: UIViewController {
     }
      
      var score = 0
+    var maxScore = 0
+    var nowScore = 0
+
+    @IBOutlet weak var redButton: UIButton!
+    @IBOutlet weak var blueButton: UIButton!
+    @IBOutlet weak var greenButton: UIButton!
+    
+    
+    @IBAction func resetButton(_ reset: UIButton) {
+        score = 0
+       
+        redButton.isEnabled = true
+        blueButton.isEnabled = true
+        greenButton.isEnabled = true
+        viewDidLoad()
+        
+    }
+    
     
     @IBAction func optionButtons(_ colorButton: UIButton) {
         
@@ -47,30 +64,45 @@ class ViewController: UIViewController {
                 textPrompt.text = "Correct!"
                 colorPrompt.backgroundColor = myColor()
                 score += 1
-                currentScore.text = "Current Score: \(score)"
+                nowScore = score
+                currentScore.text = "Current Score: \(nowScore)"
             } else {
-                textPrompt.text = "Wrong! Try again"
+                textPrompt.text = "Wrong! Reset the game."
             }
         case 1:
             if randomBlue > randomRed && randomBlue > randomGreen {
                 textPrompt.text = "Correct!"
                 colorPrompt.backgroundColor = myColor()
                 score += 1
-                currentScore.text = "Current Score: \(score)"
+                nowScore = score
+                currentScore.text = "Current Score: \(nowScore)"
             } else {
-                textPrompt.text = "Wrong! Try again"
+                textPrompt.text = "Wrong! Reset the game."
             }
         case 2:
             if randomGreen > randomRed && randomGreen > randomBlue {
                 textPrompt.text = "Correct!"
                 colorPrompt.backgroundColor = myColor()
                 score += 1
-                currentScore.text = "Current Score: \(score)"
+                nowScore = score
+                currentScore.text = "Current Score: \(nowScore)"
             } else {
-                textPrompt.text = "Wrong! Try again"
+                textPrompt.text = "Wrong! Reset the game."
             }
         default:
             print("")
+        }
+
+        colorButton.isEnabled = false
+        colorButton.isEnabled = false
+        colorButton.isEnabled = false
+        
+        maxScore = score
+        highScore.text = "High Score: \(maxScore)"
+        if maxScore > score {
+            highScore.text = "High Score: \(maxScore)"
+        } else if score > maxScore {
+            maxScore = score
         }
     }
     
